@@ -138,7 +138,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0odpcgf" sourceRef="Task_0204dg4" targetRef="IntermediateThrowEvent_091amoa" />
     <bpmn:sequenceFlow id="SequenceFlow_12dffw0" sourceRef="Task_0jdpfc8" targetRef="EndEvent_1a3fcup" />
     <bpmn:sequenceFlow id="SequenceFlow_0xdh139" sourceRef="Task_0jdpfc8" targetRef="IntermediateThrowEvent_091amoa" />
-    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_091amoa" name="wait until book payment and ">
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_091amoa" name="wait until book payment and close inventory">
       <bpmn:incoming>SequenceFlow_0odpcgf</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0xdh139</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1vybknt</bpmn:outgoing>
@@ -377,7 +377,7 @@
       <bpmndi:BPMNShape id="IntermediateThrowEvent_091amoa_di" bpmnElement="IntermediateThrowEvent_091amoa">
         <dc:Bounds x="2063" y="588" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2046" y="550.5" width="70" height="27" />
+          <dc:Bounds x="2044" y="545" width="74" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0odpcgf_di" bpmnElement="SequenceFlow_0odpcgf">
