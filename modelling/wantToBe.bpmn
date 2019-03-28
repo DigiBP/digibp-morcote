@@ -26,7 +26,7 @@
     <bpmn:userTask id="Task_0ahkuok" name="pay">
       <bpmn:incoming>SequenceFlow_1cax0lk</bpmn:incoming>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_0uvv775" name="add item to cart">
+    <bpmn:userTask id="Task_0uvv775" name="add item to card">
       <bpmn:incoming>SequenceFlow_0ejw7s2</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1bdvs6p</bpmn:outgoing>
     </bpmn:userTask>
