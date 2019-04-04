@@ -34,13 +34,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_13q687d" sourceRef="StartEvent_1" targetRef="Task_0e9oyde" />
   </bpmn:process>
   <bpmn:process id="Process_1453nn8" isExecutable="false">
-    <bpmn:task id="Task_0y3rxj0" name="confirm order">
-      <bpmn:outgoing>SequenceFlow_0hrz1fe</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:task id="Task_0dckn65">
-      <bpmn:incoming>SequenceFlow_0hrz1fe</bpmn:incoming>
-    </bpmn:task>
-    <bpmn:sequenceFlow id="SequenceFlow_0hrz1fe" sourceRef="Task_0y3rxj0" targetRef="Task_0dckn65" />
+    <bpmn:task id="Task_0y3rxj0" name="confirm order" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0wq59wq">
@@ -79,15 +73,6 @@
       <bpmndi:BPMNEdge id="MessageFlow_0g1kovt_di" bpmnElement="MessageFlow_0g1kovt">
         <di:waypoint x="396" y="234" />
         <di:waypoint x="396" y="405" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Task_0dckn65_di" bpmnElement="Task_0dckn65">
-        <dc:Bounds x="561" y="420" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0hrz1fe_di" bpmnElement="SequenceFlow_0hrz1fe">
-        <di:waypoint x="438" y="445" />
-        <di:waypoint x="500" y="445" />
-        <di:waypoint x="500" y="460" />
-        <di:waypoint x="561" y="460" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
