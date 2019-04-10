@@ -1,0 +1,4 @@
+ALTER TABLE Orders ADD CONSTRAINT FKOrders318128 FOREIGN KEY (CustomerCustomer_ID) REFERENCES Customer (Customer_ID);
+ALTER TABLE Items ADD CONSTRAINT FKItems677441 FOREIGN KEY (OrdersOrder_ID) REFERENCES Orders (Order_ID);
+ALTER TABLE Products_Customer ADD CONSTRAINT FKProducts_C43235 FOREIGN KEY (ProductsProduct_ID) REFERENCES Products (Product_ID);
+ALTER TABLE Products_Customer ADD CONSTRAINT FKProducts_C830162 FOREIGN KEY (CustomerCustomer_ID) REFERENCES Customer (Customer_ID);

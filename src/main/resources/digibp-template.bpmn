@@ -19,7 +19,7 @@
           </camunda:formField>
         </camunda:formData>
         <camunda:inputOutput>
-          <camunda:outputParameter name="Output_3uofiq1" />
+          <camunda:outputParameter name="Order_confirmation">Your Order is Confirmed</camunda:outputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_13q687d</bpmn:incoming>
