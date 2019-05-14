@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_12pz11e" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
-  <bpmn:process id="Process_1y6bowu" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_12pz11e" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <bpmn:process id="Process_1y6bowu" name="RestockOrder" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_1ejidoq</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:businessRuleTask id="BusinessRuleTask_1w50oat" name="check stock per article">
-      <bpmn:incoming>SequenceFlow_1ejidoq</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0x5klu2</bpmn:outgoing>
-      <bpmn:property id="Property_1f3dvf4" name="__targetRef_placeholder" />
-    </bpmn:businessRuleTask>
     <bpmn:sequenceFlow id="SequenceFlow_1ejidoq" sourceRef="StartEvent_1" targetRef="BusinessRuleTask_1w50oat" />
     <bpmn:inclusiveGateway id="InclusiveGateway_1assvj4">
       <bpmn:incoming>SequenceFlow_0x5klu2</bpmn:incoming>
@@ -16,9 +11,12 @@
       <bpmn:outgoing>SequenceFlow_0mlhi9l</bpmn:outgoing>
     </bpmn:inclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_0x5klu2" sourceRef="BusinessRuleTask_1w50oat" targetRef="InclusiveGateway_1assvj4" />
-    <bpmn:serviceTask id="ServiceTask_021zr88" name="send restock order  ">
+    <bpmn:serviceTask id="ServiceTask_021zr88" name="send restock order  to supplier">
       <bpmn:incoming>SequenceFlow_0r6j5rk</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_00yyzv5</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0gfk616">
+        <bpmn:targetRef>DataObjectReference_1sf3kpx</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_0r6j5rk" sourceRef="InclusiveGateway_1assvj4" targetRef="ServiceTask_021zr88" />
     <bpmn:userTask id="UserTask_1nctx59" name="assemble order">
@@ -42,14 +40,28 @@
       <bpmn:incoming>SequenceFlow_1g7hr82</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1g7hr82" sourceRef="UserTask_02y7gq6" targetRef="EndEvent_1y6j6ap" />
+    <bpmn:serviceTask id="BusinessRuleTask_1w50oat" name="check stock">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/ugwkz5aaspvbp6oyuoysfcr2jroxw2cq</camunda:inputParameter>
+            <camunda:outputParameter name="Output_3kaj7ei" />
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1ejidoq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0x5klu2</bpmn:outgoing>
+      <bpmn:property id="Property_1ejy0tv" name="__targetRef_placeholder" />
+    </bpmn:serviceTask>
+    <bpmn:dataObjectReference id="DataObjectReference_1sf3kpx" name="Restock Order" dataObjectRef="DataObject_0nyhcge" />
+    <bpmn:dataObject id="DataObject_0nyhcge" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1y6bowu">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="156" y="191" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BusinessRuleTask_1w50oat_di" bpmnElement="BusinessRuleTask_1w50oat">
-        <dc:Bounds x="254" y="169" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1ejidoq_di" bpmnElement="SequenceFlow_1ejidoq">
         <di:waypoint x="192" y="209" />
@@ -104,6 +116,19 @@
       <bpmndi:BPMNEdge id="SequenceFlow_1g7hr82_di" bpmnElement="SequenceFlow_1g7hr82">
         <di:waypoint x="880" y="209" />
         <di:waypoint x="943" y="209" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_13s4lbl_di" bpmnElement="BusinessRuleTask_1w50oat">
+        <dc:Bounds x="254" y="169" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1sf3kpx_di" bpmnElement="DataObjectReference_1sf3kpx">
+        <dc:Bounds x="550" y="391" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="532" y="448" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0gfk616_di" bpmnElement="DataOutputAssociation_0gfk616">
+        <di:waypoint x="568" y="300" />
+        <di:waypoint x="568" y="391" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
