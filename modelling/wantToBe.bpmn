@@ -11,7 +11,7 @@
     <bpmn:messageFlow id="MessageFlow_18dmz0j" name="do payment" sourceRef="Participant_0jsw07z" targetRef="Task_1sk3so0" />
     <bpmn:messageFlow id="MessageFlow_0x3ht0u" sourceRef="Task_0knwn2u" targetRef="Participant_0jsw07z" />
     <bpmn:messageFlow id="MessageFlow_0egi4oq" name="place order" sourceRef="Task_0gayequ" targetRef="Participant_0agdptr" />
-    <bpmn:messageFlow id="MessageFlow_18az5gp" name="sending confirmation" sourceRef="Task_0jdpfc8" targetRef="Participant_0jsw07z" />
+    <bpmn:messageFlow id="MessageFlow_18az5gp" name="sending confirmation" sourceRef="Task_0555vbn" targetRef="Participant_0jsw07z" />
     <bpmn:messageFlow id="MessageFlow_1y848a2" sourceRef="Task_0ahkuok" targetRef="Task_1sk3so0" />
     <bpmn:messageFlow id="MessageFlow_0bjhiw6" sourceRef="Task_0uvv775" targetRef="Task_0kno3ig" />
     <bpmn:messageFlow id="MessageFlow_12fshsx" sourceRef="Task_0rybz7o" targetRef="Task_1v4gre9" />
@@ -378,10 +378,10 @@
         <di:waypoint x="2031" y="1246" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_18az5gp_di" bpmnElement="MessageFlow_18az5gp">
-        <di:waypoint x="2047" y="1206" />
-        <di:waypoint x="2047" y="255" />
+        <di:waypoint x="2162" y="566" />
+        <di:waypoint x="2162" y="259" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1976" y="1085" width="60" height="27" />
+          <dc:Bounds x="2090" y="518" width="60" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_14xqm2v_di" bpmnElement="DataOutputAssociation_14xqm2v">
