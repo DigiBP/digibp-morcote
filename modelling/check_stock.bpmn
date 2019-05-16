@@ -5,37 +5,10 @@
       <bpmn:outgoing>SequenceFlow_1ejidoq</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1ejidoq" sourceRef="StartEvent_1" targetRef="BusinessRuleTask_1w50oat" />
-    <bpmn:inclusiveGateway id="InclusiveGateway_1assvj4">
-      <bpmn:incoming>SequenceFlow_0x5klu2</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0r6j5rk</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0mlhi9l</bpmn:outgoing>
-    </bpmn:inclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_0x5klu2" sourceRef="BusinessRuleTask_1w50oat" targetRef="InclusiveGateway_1assvj4" />
-    <bpmn:serviceTask id="ServiceTask_021zr88" name="send restock order  to supplier">
-      <bpmn:incoming>SequenceFlow_0r6j5rk</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_00yyzv5</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0gfk616">
-        <bpmn:targetRef>DataObjectReference_1sf3kpx</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0r6j5rk" sourceRef="InclusiveGateway_1assvj4" targetRef="ServiceTask_021zr88" />
-    <bpmn:userTask id="UserTask_1nctx59" name="assemble order">
-      <bpmn:incoming>SequenceFlow_0mlhi9l</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1tozvrb</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0mlhi9l" sourceRef="InclusiveGateway_1assvj4" targetRef="UserTask_1nctx59" />
-    <bpmn:inclusiveGateway id="InclusiveGateway_1u2g1we">
-      <bpmn:incoming>SequenceFlow_00yyzv5</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1tozvrb</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1a5hbl5</bpmn:outgoing>
-    </bpmn:inclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_00yyzv5" sourceRef="ServiceTask_021zr88" targetRef="InclusiveGateway_1u2g1we" />
-    <bpmn:sequenceFlow id="SequenceFlow_1tozvrb" sourceRef="UserTask_1nctx59" targetRef="InclusiveGateway_1u2g1we" />
     <bpmn:userTask id="UserTask_02y7gq6" name="packaging order">
-      <bpmn:incoming>SequenceFlow_1a5hbl5</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_00f9ifi</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1g7hr82</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1a5hbl5" sourceRef="InclusiveGateway_1u2g1we" targetRef="UserTask_02y7gq6" />
     <bpmn:endEvent id="EndEvent_1y6j6ap">
       <bpmn:incoming>SequenceFlow_1g7hr82</bpmn:incoming>
     </bpmn:endEvent>
@@ -52,83 +25,36 @@
         </camunda:connector>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1ejidoq</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0x5klu2</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_00f9ifi</bpmn:outgoing>
       <bpmn:property id="Property_1ejy0tv" name="__targetRef_placeholder" />
     </bpmn:serviceTask>
-    <bpmn:dataObjectReference id="DataObjectReference_1sf3kpx" name="Restock Order" dataObjectRef="DataObject_0nyhcge" />
-    <bpmn:dataObject id="DataObject_0nyhcge" />
+    <bpmn:sequenceFlow id="SequenceFlow_00f9ifi" sourceRef="BusinessRuleTask_1w50oat" targetRef="UserTask_02y7gq6" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1y6bowu">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="156" y="191" width="36" height="36" />
+        <dc:Bounds x="156" y="103" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1ejidoq_di" bpmnElement="SequenceFlow_1ejidoq">
-        <di:waypoint x="192" y="209" />
-        <di:waypoint x="254" y="209" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="InclusiveGateway_1assvj4_di" bpmnElement="InclusiveGateway_1assvj4">
-        <dc:Bounds x="410" y="184" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0x5klu2_di" bpmnElement="SequenceFlow_0x5klu2">
-        <di:waypoint x="354" y="209" />
-        <di:waypoint x="410" y="209" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_021zr88_di" bpmnElement="ServiceTask_021zr88">
-        <dc:Bounds x="518" y="220" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0r6j5rk_di" bpmnElement="SequenceFlow_0r6j5rk">
-        <di:waypoint x="435" y="234" />
-        <di:waypoint x="435" y="260" />
-        <di:waypoint x="518" y="260" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_1nctx59_di" bpmnElement="UserTask_1nctx59">
-        <dc:Bounds x="518" y="113" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0mlhi9l_di" bpmnElement="SequenceFlow_0mlhi9l">
-        <di:waypoint x="435" y="184" />
-        <di:waypoint x="435" y="153" />
-        <di:waypoint x="518" y="153" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="InclusiveGateway_1u2g1we_di" bpmnElement="InclusiveGateway_1u2g1we">
-        <dc:Bounds x="661" y="184" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_00yyzv5_di" bpmnElement="SequenceFlow_00yyzv5">
-        <di:waypoint x="618" y="260" />
-        <di:waypoint x="686" y="260" />
-        <di:waypoint x="686" y="234" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1tozvrb_di" bpmnElement="SequenceFlow_1tozvrb">
-        <di:waypoint x="618" y="153" />
-        <di:waypoint x="686" y="153" />
-        <di:waypoint x="686" y="184" />
+        <di:waypoint x="192" y="121" />
+        <di:waypoint x="254" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_02y7gq6_di" bpmnElement="UserTask_02y7gq6">
-        <dc:Bounds x="780" y="169" width="100" height="80" />
+        <dc:Bounds x="443" y="81" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1a5hbl5_di" bpmnElement="SequenceFlow_1a5hbl5">
-        <di:waypoint x="711" y="209" />
-        <di:waypoint x="780" y="209" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1y6j6ap_di" bpmnElement="EndEvent_1y6j6ap">
-        <dc:Bounds x="943" y="191" width="36" height="36" />
+        <dc:Bounds x="627" y="103" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1g7hr82_di" bpmnElement="SequenceFlow_1g7hr82">
-        <di:waypoint x="880" y="209" />
-        <di:waypoint x="943" y="209" />
+        <di:waypoint x="543" y="121" />
+        <di:waypoint x="627" y="121" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_13s4lbl_di" bpmnElement="BusinessRuleTask_1w50oat">
-        <dc:Bounds x="254" y="169" width="100" height="80" />
+        <dc:Bounds x="254" y="81" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataObjectReference_1sf3kpx_di" bpmnElement="DataObjectReference_1sf3kpx">
-        <dc:Bounds x="550" y="391" width="36" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="532" y="448" width="72" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0gfk616_di" bpmnElement="DataOutputAssociation_0gfk616">
-        <di:waypoint x="568" y="300" />
-        <di:waypoint x="568" y="391" />
+      <bpmndi:BPMNEdge id="SequenceFlow_00f9ifi_di" bpmnElement="SequenceFlow_00f9ifi">
+        <di:waypoint x="354" y="121" />
+        <di:waypoint x="443" y="121" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
