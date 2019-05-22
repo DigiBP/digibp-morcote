@@ -35,9 +35,6 @@ public class PostgresConnection {
     private static void StringSplitter(String OrderChaos){
 
         String[] getAllOrders = new String[15];
-
-
-
         String firstPart = OrderChaos.split(";")[0];
         System.out.println(firstPart.toString());
 
