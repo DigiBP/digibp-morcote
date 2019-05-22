@@ -1,4 +1,4 @@
-
+package ch.fhnw.digibp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBConnection {
+public class PostgresConnection {
 
     public static void main(String[] args) {
 
@@ -35,9 +35,6 @@ public class DBConnection {
     private static void StringSplitter(String OrderChaos){
 
         String[] getAllOrders = new String[15];
-
-
-
         String firstPart = OrderChaos.split(";")[0];
         System.out.println(firstPart.toString());
 
