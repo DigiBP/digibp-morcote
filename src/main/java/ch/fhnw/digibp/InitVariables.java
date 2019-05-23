@@ -18,8 +18,7 @@ public class InitVariables implements JavaDelegate {
 
         this.execution = execution;
 
-        Object val1= execution.getVariable("Product of Stock");
-        val1.toString();
+        execution.setVariable("FirstName", "OliWasHere");
     }
 
 
