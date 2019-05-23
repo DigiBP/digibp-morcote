@@ -12,6 +12,10 @@ public class PostgresConnection {
 
 
 
+
+    }
+
+    public static void dbConnect(){
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-247-70-127.eu-west-1.compute.amazonaws.com:5432/dd786fen583a5s?ssl=true\n", "mtqjbarwkwzsld", "2b51f440930a3711f9cabf9884d82feda3b70e9b35c9e9fb2d5f6f989fef445a"))
         {
             System.out.println("Java JDBC PostgreSQL Example");
