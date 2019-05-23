@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0dpg51j" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
   <bpmn:collaboration id="OverallWebshop">
-    <bpmn:participant id="Participant_1sn5mvi" name="system" processRef="Process_1453nn8" />
+    <bpmn:participant id="Participant_1sn5mvi" name="system" processRef="WebShopProcess" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1453nn8" isExecutable="false">
+  <bpmn:process id="WebShopProcess" isExecutable="true">
     <bpmn:serviceTask id="InventoryMgmgIntegromat" name="Do inventory management and store Stock">
       <bpmn:extensionElements>
         <camunda:connector>
@@ -37,25 +37,11 @@ ProductStock=object.minStockOfProduct</camunda:script>
     <bpmn:startEvent id="GrandStart" name="Start Event">
       <bpmn:outgoing>SequenceFlow_18jb4s8</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1jr5kv1" name="1minute timer">
-      <bpmn:incoming>SequenceFlow_18jb4s8</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_03i11pc</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_01vm5rz" sourceRef="CreateDBEntry" targetRef="InventoryMgmgIntegromat" />
     <bpmn:sequenceFlow id="SequenceFlow_18jb4s8" sourceRef="GrandStart" targetRef="IntermediateThrowEvent_1jr5kv1" />
     <bpmn:sequenceFlow id="SequenceFlow_0mfh87p" sourceRef="InventoryMgmgIntegromat" targetRef="IntermediateThrowEvent_12fg0mb" />
     <bpmn:sequenceFlow id="SequenceFlow_17qqjpn" sourceRef="IntermediateThrowEvent_12fg0mb" targetRef="EndEvent_0ebi9nk" />
     <bpmn:sequenceFlow id="SequenceFlow_03i11pc" sourceRef="IntermediateThrowEvent_1jr5kv1" targetRef="CreateDBEntry" />
-    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_12fg0mb" name="1 minute timer">
-      <bpmn:incoming>SequenceFlow_0mfh87p</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_17qqjpn</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:serviceTask id="CreateDBEntry" name="Create Database Entry" camunda:class="ch.fhnw.digibp.InitVariables">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -65,6 +51,20 @@ ProductStock=object.minStockOfProduct</camunda:script>
       <bpmn:incoming>SequenceFlow_03i11pc</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_01vm5rz</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_12fg0mb" name="1 minute timer">
+      <bpmn:incoming>SequenceFlow_0mfh87p</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_17qqjpn</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1jr5kv1" name="1minute timer">
+      <bpmn:incoming>SequenceFlow_18jb4s8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_03i11pc</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmn:message id="Message_0a4gjtp" name="Message_3umc2rs" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -82,9 +82,9 @@ ProductStock=object.minStockOfProduct</camunda:script>
         <dc:Bounds x="520" y="172" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_1edbz2p_di" bpmnElement="IntermediateThrowEvent_12fg0mb">
-        <dc:Bounds x="707" y="194" width="36" height="36" />
+        <dc:Bounds x="694" y="194" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="690" y="237" width="70" height="14" />
+          <dc:Bounds x="677" y="237" width="70" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0ebi9nk_di" bpmnElement="EndEvent_0ebi9nk">
@@ -96,27 +96,27 @@ ProductStock=object.minStockOfProduct</camunda:script>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_18jb4s8_di" bpmnElement="SequenceFlow_18jb4s8">
         <di:waypoint x="215" y="212" />
-        <di:waypoint x="246" y="212" />
+        <di:waypoint x="265" y="212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0mfh87p_di" bpmnElement="SequenceFlow_0mfh87p">
         <di:waypoint x="620" y="212" />
-        <di:waypoint x="707" y="212" />
+        <di:waypoint x="694" y="212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_17qqjpn_di" bpmnElement="SequenceFlow_17qqjpn">
-        <di:waypoint x="743" y="212" />
+        <di:waypoint x="730" y="212" />
         <di:waypoint x="837" y="212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1xs4b3c_di" bpmnElement="CreateDBEntry">
         <dc:Bounds x="353" y="172" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_03i11pc_di" bpmnElement="SequenceFlow_03i11pc">
-        <di:waypoint x="282" y="212" />
+        <di:waypoint x="301" y="212" />
         <di:waypoint x="353" y="212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_159poac_di" bpmnElement="IntermediateThrowEvent_1jr5kv1">
-        <dc:Bounds x="246" y="194" width="36" height="36" />
+        <dc:Bounds x="265" y="194" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="231" y="237" width="67" height="14" />
+          <dc:Bounds x="250" y="237" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
