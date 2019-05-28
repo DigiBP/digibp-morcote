@@ -17,8 +17,8 @@ public class InitVariables implements JavaDelegate {
 
         this.execution = execution;
 
-        //execution.setVariable("FirstName", "OliWasHere");
-        addUser("Loris", "Yannick","loris@yanniick.com", "FHNW-weg","25", 4600, "olten" );
+        execution.setVariable("FirstName", "OliWasHere");
+        addUser(execution.getVariable("FirstName").toString(), "Yannick","loris@yanniick.com", "FHNW-weg","25", 4600, "olten" );
 
     }
 
