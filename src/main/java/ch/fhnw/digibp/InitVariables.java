@@ -13,7 +13,6 @@ public class InitVariables implements JavaDelegate {
     private DelegateExecution execution;
     private static int userID;
 
-
     public void execute(DelegateExecution execution) throws Exception {
 
         this.execution = execution;
