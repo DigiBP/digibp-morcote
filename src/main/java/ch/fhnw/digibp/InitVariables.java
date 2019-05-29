@@ -136,7 +136,7 @@ public class InitVariables implements JavaDelegate {
                 ResultSet rset = stmt.executeQuery("select i_price_swissrappen from item where i_id="+entry.getKey()+"");
 
                 if(rset.next()){
-                    cumulatedPrice = cumulatedPrice+(rs.getInt(1)*Integer.parseInt(entry.getValue()));
+                    cumulatedPrice = cumulatedPrice+(rs.getInt(2)*Integer.parseInt(entry.getValue()));
 
                 }
 
