@@ -31,13 +31,13 @@ public class InitVariables implements JavaDelegate {
         String sNumbery = execution.getVariable("StreetNumber").toString();
 
 
-
-        execution.setVariable("FirstName", "OliWasHere");
         addUser(firsty,lasty,maily, streety, Integer.parseInt(sNumbery), posty, cityy);
         addShoppingCart();
         orderCreation(ordery);
 
-        execution.setVariable("overallPrice", cumulatedPrice);
+        updateShoppingCart();
+
+
 
 
     }
@@ -136,7 +136,8 @@ public class InitVariables implements JavaDelegate {
                 ResultSet rset = stmt.executeQuery("select i_price_swissrappen from item where i_id="+entry.getKey()+"");
 
                 if(rset.next()){
-                    cumulatedPrice = cumulatedPrice+rs.getInt(1);
+                    cumulatedPrice = cumulatedPrice+(rs.getInt(1)*Integer.parseInt(entry.getValue()));
+
                 }
 
                 currentOrderID++;
@@ -150,6 +151,23 @@ public class InitVariables implements JavaDelegate {
         }
 
 
+
+
+    }
+
+    private static void updateShoppingCart(){
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-247-70-127.eu-west-1.compute.amazonaws.com:5432/dd786fen583a5s?ssl=true\n", "mtqjbarwkwzsld", "2b51f440930a3711f9cabf9884d82feda3b70e9b35c9e9fb2d5f6f989fef445a"))
+        {
+
+            String query = "UPDATE shoppingcart Set sc_cumulatedprice_swissrappen="+cumulatedPrice+" where sc_id="+getscID()+"";
+            Statement upst = connection.createStatement();
+            upst.execute(query);
+
+
+        }catch (SQLException e) {
+            System.out.println("Connection failure.");
+            e.printStackTrace();
+        }
 
 
     }
@@ -168,6 +186,15 @@ public class InitVariables implements JavaDelegate {
         }
 
         return ordersList;
+    }
+
+
+
+    public String cumulatedAsString(){
+
+        Integer cp=cumulatedPrice;
+        return cp.toString();
+
     }
 
     public static int getUserID(){
