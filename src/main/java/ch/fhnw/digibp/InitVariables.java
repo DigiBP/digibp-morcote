@@ -15,6 +15,7 @@ public class InitVariables implements JavaDelegate {
     private DelegateExecution execution;
     private static int userID;
     private static int scID;
+    private static int cumulatedPrice=0;
 
     public void execute(DelegateExecution execution) throws Exception {
 
@@ -35,6 +36,8 @@ public class InitVariables implements JavaDelegate {
         addUser(firsty,lasty,maily, streety, Integer.parseInt(sNumbery), posty, cityy);
         addShoppingCart();
         orderCreation(ordery);
+
+        execution.setVariable("overallPrice", cumulatedPrice);
 
 
     }
@@ -128,6 +131,13 @@ public class InitVariables implements JavaDelegate {
                 System.out.println(query);
                 Statement pst = connection.createStatement();
                 pst.execute(query);
+
+                Statement stmt = connection.createStatement();
+                ResultSet rset = stmt.executeQuery("select i_price_swissrappen from item where i_id="+entry.getKey()+"");
+
+                if(rset.next()){
+                    cumulatedPrice = cumulatedPrice+rs.getInt(1);
+                }
 
                 currentOrderID++;
             }
