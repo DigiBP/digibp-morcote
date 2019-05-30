@@ -38,7 +38,6 @@ public class InitVariables implements JavaDelegate {
 
         execution.setVariable("ShoppingCart", getscID());
 
-
     }
 
     public static void addUser(String fName, String lName, String eMail, String street, int housenumber, String postcode, String city){
