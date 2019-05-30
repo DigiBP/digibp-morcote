@@ -115,14 +115,12 @@ public class InitVariables implements JavaDelegate {
             //create order for ever every key and value pair (id and amount), update stock and calculate cumulated price
             for(Map.Entry<String, String> entry: cleanList.entrySet()) {
                 String query = "INSERT INTO orders (\"o_id\", \"o_amountofitems\", \"fk_item_id\", \"fk_customer_id\",\"fk_shoppingcarts_id\") VALUES ('"+currentOrderID+"','"+entry.getValue()+"','"+entry.getKey()+"','"+getUserID()+"', '"+getscID()+"')";
-                System.out.println(query);
                 Statement pst = connection.createStatement();
                 pst.execute(query);
                 //update Stock
                 String updateStockQuery = "UPDATE item set i_stock=(i_stock-"+entry.getValue()+") where i_id="+ entry.getKey()+"";
-                System.out.println(updateStockQuery);
                 Statement upStock = connection.createStatement();
-                upStock.execute(query);
+                upStock.execute(updateStockQuery);
                 //update cumulated Price
                 Statement stmt = connection.createStatement();
                 ResultSet rset = stmt.executeQuery("select i_price_swissrappen from item where i_id="+entry.getKey()+"");
