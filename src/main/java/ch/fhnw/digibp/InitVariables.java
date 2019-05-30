@@ -37,6 +37,7 @@ public class InitVariables implements JavaDelegate {
         updateShoppingCart();
 
         execution.setVariable("ShoppingCart", getscID());
+        setscID(0);
 
     }
 
