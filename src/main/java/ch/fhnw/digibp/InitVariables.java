@@ -36,7 +36,7 @@ public class InitVariables implements JavaDelegate {
         orderCreation(ordery);
         updateShoppingCart();
 
-        execution.setVariable("ShoppingCart", getscID());
+        //execution.setVariable("ShoppingCart", getscID());
 
     }
 
