@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0dppnm6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <decision id="Discount_Decesion" name="Discount Applicable">
+    <extensionElements>
+      <biodi:bounds x="157" y="81" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1">
+      <input id="InputClause_0hc887y" label="number of orders">
+        <inputExpression id="LiteralExpression_17ilkcs" typeRef="double">
+          <text>count</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Scoring" name="scoring" typeRef="double" />
+      <output id="OutputClause_0un12k1" label="Explanation" name="explanation" typeRef="string" />
+      <rule id="DecisionRule_0b222ee">
+        <description></description>
+        <inputEntry id="UnaryTests_16unt0w">
+          <text>0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19xnbpv">
+          <text>2.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o815xh">
+          <text>"First Time Customer"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m0pmfj">
+        <inputEntry id="UnaryTests_14qmnva">
+          <text>[1..10[</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03vh19e">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_102dol7">
+          <text>"Regular Customer"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bffnck">
+        <inputEntry id="UnaryTests_0sm97ey">
+          <text>&gt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cyaitg">
+          <text>7.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01bu9dp">
+          <text>"Frequent Customer"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

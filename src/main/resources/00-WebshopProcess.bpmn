@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0dpg51j" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.4">
+  <bpmn:collaboration id="OverallWebshop">
+    <bpmn:participant id="WebShopProcess" name="Clothing Company" processRef="CC-WebshopProcess" />
+  </bpmn:collaboration>
+  <bpmn:process id="CC-WebshopProcess" name="00_WebshopProcess" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_19yjfw8">
+      <bpmn:lane id="Lane_1rcj51e" name="System">
+        <bpmn:flowNodeRef>GrandStart</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_doInvertoryMgmt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_sendMailConfirmation</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0ebi9nk</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>CreateDBEntry</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>callDiscountAndInvoice</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="DeliveryConfirmatio" name="Manual">
+        <bpmn:flowNodeRef>Task_1660tpp</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:sequenceFlow id="SequenceFlow_01vm5rz" sourceRef="CreateDBEntry" targetRef="callDiscountAndInvoice" />
+    <bpmn:sequenceFlow id="SequenceFlow_18jb4s8" sourceRef="GrandStart" targetRef="CreateDBEntry" />
+    <bpmn:startEvent id="GrandStart" name="Start Event">
+      <bpmn:outgoing>SequenceFlow_18jb4s8</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1333lc4" sourceRef="Task_1660tpp" targetRef="Task_sendMailConfirmation" />
+    <bpmn:sequenceFlow id="SequenceFlow_0zxp7dl" sourceRef="ServiceTask_doInvertoryMgmt" targetRef="Task_1660tpp" />
+    <bpmn:serviceTask id="ServiceTask_doInvertoryMgmt" name="Do inventory management and store Stockheim">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/kklbvc4hw31ae7bqe5p7iemuhb659dns</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+    "Item_ID": ShoppingCart
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="InventoryMgmgtOutput">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+InventoryMgmgtOutput=object.Einkaufswagen</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1vsn5i1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zxp7dl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_02gfsn1" sourceRef="Task_sendMailConfirmation" targetRef="EndEvent_0ebi9nk" />
+    <bpmn:userTask id="Task_1660tpp" name="Confirm delivery" camunda:candidateGroups="grLogistics">
+      <bpmn:incoming>SequenceFlow_0zxp7dl</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1333lc4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_sendMailConfirmation" name="send package is on the way confirmation">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/yox7r2flubnlb6q9p168afqridb8r6bq</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="Javascript">out = JSON.stringify({
+    "FirstName": FirstName,
+"Mail" : Mail
+
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="ConfirmationOutput" />
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1333lc4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_02gfsn1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_0ebi9nk">
+      <bpmn:incoming>SequenceFlow_02gfsn1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="CreateDBEntry" name="Create Database Entry" camunda:class="ch.fhnw.digibp.InitVariables">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="CreateDBEntries" />
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_18jb4s8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_01vm5rz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1vsn5i1" sourceRef="callDiscountAndInvoice" targetRef="ServiceTask_doInvertoryMgmt" />
+    <bpmn:callActivity id="callDiscountAndInvoice" name="Check if discount available and send invoice" calledElement="DiscountAndInvoice">
+      <bpmn:extensionElements>
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_01vm5rz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1vsn5i1</bpmn:outgoing>
+    </bpmn:callActivity>
+  </bpmn:process>
+  <bpmn:message id="Message_0a4gjtp" name="Message_3umc2rs" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="OverallWebshop">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="GrandStart">
+        <dc:Bounds x="204" y="194" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="196" y="237" width="55" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_1sn5mvi_di" bpmnElement="WebShopProcess" isHorizontal="true">
+        <dc:Bounds x="128" y="110" width="1070" height="432" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0ebi9nk_di" bpmnElement="EndEvent_0ebi9nk">
+        <dc:Bounds x="973" y="194" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_01vm5rz_di" bpmnElement="SequenceFlow_01vm5rz">
+        <di:waypoint x="371" y="212" />
+        <di:waypoint x="427" y="212" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_18jb4s8_di" bpmnElement="SequenceFlow_18jb4s8">
+        <di:waypoint x="240" y="212" />
+        <di:waypoint x="271" y="212" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1xs4b3c_di" bpmnElement="CreateDBEntry">
+        <dc:Bounds x="271" y="172" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1rcj51e_di" bpmnElement="Lane_1rcj51e" isHorizontal="true">
+        <dc:Bounds x="158" y="110" width="1040" height="199" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0qa1nf5_di" bpmnElement="DeliveryConfirmatio" isHorizontal="true">
+        <dc:Bounds x="158" y="309" width="1040" height="233" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1333lc4_di" bpmnElement="SequenceFlow_1333lc4">
+        <di:waypoint x="797" y="433" />
+        <di:waypoint x="866" y="433" />
+        <di:waypoint x="866" y="252" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_047wyr5_di" bpmnElement="Task_1660tpp">
+        <dc:Bounds x="697" y="393" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0u2wzm6_di" bpmnElement="ServiceTask_doInvertoryMgmt">
+        <dc:Bounds x="603" y="172" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zxp7dl_di" bpmnElement="SequenceFlow_0zxp7dl">
+        <di:waypoint x="653" y="252" />
+        <di:waypoint x="653" y="433" />
+        <di:waypoint x="696" y="433" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_02gfsn1_di" bpmnElement="SequenceFlow_02gfsn1">
+        <di:waypoint x="916" y="212" />
+        <di:waypoint x="973" y="212" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1gp2y1w_di" bpmnElement="Task_sendMailConfirmation">
+        <dc:Bounds x="816" y="172" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1vsn5i1_di" bpmnElement="SequenceFlow_1vsn5i1">
+        <di:waypoint x="527" y="212" />
+        <di:waypoint x="603" y="212" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="CallActivity_0qw1h9e_di" bpmnElement="callDiscountAndInvoice">
+        <dc:Bounds x="427" y="172" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
