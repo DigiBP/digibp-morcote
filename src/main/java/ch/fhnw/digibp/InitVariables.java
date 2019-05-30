@@ -24,7 +24,7 @@ public class InitVariables implements JavaDelegate {
         String firsty =execution.getVariable("FirstName").toString();
         String lasty = execution.getVariable("LastName").toString();
         String maily = execution.getVariable("Mail").toString();
-        String ordery = execution.getVariable("order").toString();
+        String ordery = execution.getVariable("Order").toString();
         String posty = execution.getVariable("PostCode").toString();
         String streety = execution.getVariable("Street").toString();
         String cityy = execution.getVariable("City").toString();
@@ -34,8 +34,9 @@ public class InitVariables implements JavaDelegate {
         addUser(firsty,lasty,maily, streety, Integer.parseInt(sNumbery), posty, cityy);
         addShoppingCart();
         orderCreation(ordery);
-
         updateShoppingCart();
+
+        execution.setVariable("ShoppingCart", getscID());
 
 
 
@@ -149,7 +150,6 @@ public class InitVariables implements JavaDelegate {
             System.out.println("Connection failure.");
             e.printStackTrace();
         }
-
 
 
 
