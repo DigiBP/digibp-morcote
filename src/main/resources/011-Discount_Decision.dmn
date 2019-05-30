@@ -20,6 +20,11 @@
           <text></text>
         </inputExpression>
       </input>
+      <input id="InputClause_0ub7wgn">
+        <inputExpression id="LiteralExpression_1la16uq" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
       <output id="output_1" label="Scoring" name="scoring" typeRef="double" />
       <output id="OutputClause_0un12k1" label="Explanation" name="explanation" typeRef="string" />
       <rule id="DecisionRule_0b222ee">
@@ -31,6 +36,9 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ozz956">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03all8a">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_19xnbpv">
@@ -50,6 +58,9 @@
         <inputEntry id="UnaryTests_196pxxf">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1bkdasu">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_03vh19e">
           <text>5</text>
         </outputEntry>
@@ -65,6 +76,9 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0i6tvwx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kn7t35">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1cyaitg">
