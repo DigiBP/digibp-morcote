@@ -7,11 +7,11 @@
     <bpmn:laneSet id="LaneSet_19yjfw8">
       <bpmn:lane id="Lane_1rcj51e" name="System">
         <bpmn:flowNodeRef>GrandStart</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ServiceTask_doInvertoryMgmt</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_sendMailConfirmation</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0ebi9nk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>CreateDBEntry</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>callDiscountAndInvoice</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_doInvertoryMgmt</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="DeliveryConfirmatio" name="Manual">
         <bpmn:flowNodeRef>Task_1660tpp</bpmn:flowNodeRef>
@@ -24,33 +24,6 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1333lc4" sourceRef="Task_1660tpp" targetRef="Task_sendMailConfirmation" />
     <bpmn:sequenceFlow id="SequenceFlow_0zxp7dl" sourceRef="ServiceTask_doInvertoryMgmt" targetRef="Task_1660tpp" />
-    <bpmn:serviceTask id="ServiceTask_doInvertoryMgmt" name="Do inventory management and store Stockheim">
-      <bpmn:extensionElements>
-        <camunda:connector>
-          <camunda:inputOutput>
-            <camunda:inputParameter name="method">POST</camunda:inputParameter>
-            <camunda:inputParameter name="url">https://hook.integromat.com/kklbvc4hw31ae7bqe5p7iemuhb659dns</camunda:inputParameter>
-            <camunda:inputParameter name="headers">
-              <camunda:map>
-                <camunda:entry key="Content-Type">application/json</camunda:entry>
-              </camunda:map>
-            </camunda:inputParameter>
-            <camunda:inputParameter name="payload">
-              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
-    "Item_ID": ShoppingCart
-});</camunda:script>
-            </camunda:inputParameter>
-            <camunda:outputParameter name="InventoryMgmgtOutput">
-              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
-InventoryMgmgtOutput=object.Einkaufswagen</camunda:script>
-            </camunda:outputParameter>
-          </camunda:inputOutput>
-          <camunda:connectorId>http-connector</camunda:connectorId>
-        </camunda:connector>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_1vsn5i1</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0zxp7dl</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_02gfsn1" sourceRef="Task_sendMailConfirmation" targetRef="EndEvent_0ebi9nk" />
     <bpmn:userTask id="Task_1660tpp" name="Confirm delivery" camunda:candidateGroups="grLogistics">
       <bpmn:incoming>SequenceFlow_0zxp7dl</bpmn:incoming>
@@ -103,6 +76,33 @@ InventoryMgmgtOutput=object.Einkaufswagen</camunda:script>
       <bpmn:incoming>SequenceFlow_01vm5rz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1vsn5i1</bpmn:outgoing>
     </bpmn:callActivity>
+    <bpmn:serviceTask id="ServiceTask_doInvertoryMgmt" name="Do inventory management and store Stockheim">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/kklbvc4hw31ae7bqe5p7iemuhb659dns</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+    "Item_ID": ShoppingCart
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="InventoryMgmgtOutput">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+InventoryMgmgtOutput=object.Einkaufswagen</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1vsn5i1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zxp7dl</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:message id="Message_0a4gjtp" name="Message_3umc2rs" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -150,7 +150,7 @@ InventoryMgmgtOutput=object.Einkaufswagen</camunda:script>
       <bpmndi:BPMNEdge id="SequenceFlow_0zxp7dl_di" bpmnElement="SequenceFlow_0zxp7dl">
         <di:waypoint x="653" y="252" />
         <di:waypoint x="653" y="433" />
-        <di:waypoint x="696" y="433" />
+        <di:waypoint x="697" y="433" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_02gfsn1_di" bpmnElement="SequenceFlow_02gfsn1">
         <di:waypoint x="916" y="212" />

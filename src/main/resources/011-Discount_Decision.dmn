@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0dppnm6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
-  <decision id="Discount_Decesion" name="Discount Applicable">
+  <decision id="Discount_Decision" name="Discount Applicable">
     <extensionElements>
       <biodi:bounds x="157" y="81" width="180" height="80" />
     </extensionElements>
@@ -10,12 +10,28 @@
           <text>count</text>
         </inputExpression>
       </input>
+      <input id="InputClause_00oiryk">
+        <inputExpression id="LiteralExpression_1jxu3th" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1cl87cd">
+        <inputExpression id="LiteralExpression_1tz6dmj" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
       <output id="output_1" label="Scoring" name="scoring" typeRef="double" />
       <output id="OutputClause_0un12k1" label="Explanation" name="explanation" typeRef="string" />
       <rule id="DecisionRule_0b222ee">
         <description></description>
         <inputEntry id="UnaryTests_16unt0w">
-          <text>0</text>
+          <text>1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k88fhl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ozz956">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_19xnbpv">
           <text>2.5</text>
@@ -26,7 +42,13 @@
       </rule>
       <rule id="DecisionRule_0m0pmfj">
         <inputEntry id="UnaryTests_14qmnva">
-          <text>[1..10[</text>
+          <text>[2..6[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z6thzq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_196pxxf">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_03vh19e">
           <text>5</text>
@@ -37,7 +59,13 @@
       </rule>
       <rule id="DecisionRule_1bffnck">
         <inputEntry id="UnaryTests_0sm97ey">
-          <text>&gt;= 10</text>
+          <text>&gt;= 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0riswv7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i6tvwx">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1cyaitg">
           <text>7.5</text>
